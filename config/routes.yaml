@@ -1,0 +1,3 @@
+produce_message:
+  path: /messages/getNewMessage
+  controller: App\Controller\ApiClient::getMessage
