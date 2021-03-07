@@ -27,8 +27,8 @@ We subscribe to a "results" Queue to get the filtered message and store it to th
 #### Start Server
 `symfony server:start`  
 Navigate to:  
-`http://localhost:8001/messages/getNewMessage`  
-or  
+`http://localhost:8001/messages/getNewMessage`    
+or    
 `curl http://localhost:8001/messages/getNewMessage`  
 
 ## Database Scheme
@@ -46,7 +46,7 @@ or
 
 ## Environment file
 
-####> RabbitMQ Conf
+#### RabbitMQ Conf
 
 - RABBITMQ_HOSTNAME=<rabbitMQ_Host>  
 - RABBITMQ_USERNAME=<rabbitMQ_Username>  
@@ -56,7 +56,7 @@ or
 - RABBITMQ_PORT=<rabbitMQ_Port>  
 - RABBITMQ_TIMEOUT=<rabbitMQ_Timeout_To_Wait_Filtered_Message>  
 
-####> MySQL Conf
+#### MySQL Conf
 - DATABASE_URL=mysql://<username>:<password>@<host>:<port>/<db_name>  
 - MYSQL_HOSTNAME=<MySQL_Host>  
 - MYSQL_USERNAME=<rMySQL_Username>  
