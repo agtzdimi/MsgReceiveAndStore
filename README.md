@@ -64,7 +64,7 @@ or
 - MYSQL_DB_NAME=<MySQL_DB_NAME>  
 
 #### External API
-RESULTS_URL=<external_API>
+- RESULTS_URL=<external_API>
 
 ## Acknowledgments
 
