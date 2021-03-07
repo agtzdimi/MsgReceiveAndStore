@@ -33,7 +33,7 @@ or
 
 ## Database Scheme
 
-####Table: messages  
+#### Table: messages  
 **Fields**  
 `id int(11) NULLABLE NO AUTO_INC`  
 `gateway_eui decimal(19) NULLABLE NO`  
