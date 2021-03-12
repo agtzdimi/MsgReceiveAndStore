@@ -64,12 +64,14 @@ class RabbitMQHelper
     }
 
     /**
-     * Function that given a string routing key it will subscribe to a defined queue and wait to receive a message for
-     * a configurable in .env amount of seconds
+     * Function that given a string routing key and message it will subscribe to a defined queue and
+     * publish the message. The connection would wait to receive a reply for RABBITMQ_TIMEOUT seconds
+     * which is configured in .env
      *
      * @param string $routing_key
+     * @param string $context
      */
-    public function subscribeToQueue(string $routing_key) {
+    public function subscribeToQueueNPublish(string $routing_key, string $context) {
         $this->channel->queue_bind($_SERVER['RABBITMQ_QUEUE_NAME'], $_SERVER['RABBITMQ_EXCHANGE'], $routing_key);
 
         // Closure function to be used as callback function for subscription in the queue
@@ -105,7 +107,8 @@ class RabbitMQHelper
 
         $this->channel->basic_consume($_SERVER['RABBITMQ_QUEUE_NAME'],'',false,false,false,false, $consumerCallback);
         try {
-
+            // Publish the message and wait
+            $this->publishMessage($context, $routing_key);
             if (count($this->channel->callbacks)) {
                 $this->channel->wait(null, false, $_SERVER['RABBITMQ_TIMEOUT']);
             }

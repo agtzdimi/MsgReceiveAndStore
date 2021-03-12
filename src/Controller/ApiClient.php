@@ -37,6 +37,7 @@ class ApiClient
         try {
             // Get Sample results data
             $response = $this->client->request('GET', $_SERVER['RESULTS_URL']);
+            // We expect 200 status code
             $statusCode = $response->getStatusCode();
             if (200 !== $statusCode) {
                 throw new Exception('Error Code: ' . $response->getStatusCode() . " Message: " . $response->getInfo());
@@ -49,9 +50,8 @@ class ApiClient
             $message = new Messages();
             $serializer->deserialize($response->getContent(), 'App\Entity\Messages', 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $message]);
 
-            // Publish/Subscribe to RabbitMQ
-            $rabbitMQ->publishMessage($response->getContent(), $message->getRabbitMQMsg());
-            $rabbitMQ->subscribeToQueue($message->getRabbitMQMsg());
+            // Subscribe to RabbitMQ
+            $rabbitMQ->subscribeToQueueNPublish($message->getRabbitMQMsg(),$response->getContent());
 
             return new Response(
                 '<html lang="en"><body>' . $message->getRabbitMQMsg() . '</body></html>'
